@@ -9,12 +9,12 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-func StartHttpServer() {
+func StartHttpServer(port string) {
 	app := iris.New()
 
 	app.PartyFunc("/users", func(users iris.Party) {
 		// /users/id
-		users.Get("/{id:int}", func(ctx iris.Context) {
+		users.Post("/{id:int}", func(ctx iris.Context) {
 			id := ctx.Params().Get("id")
 			err := kafka.ProduceMessages(ctx, db.C.Kafka.Topic1, id)
 			if err != nil {
@@ -28,5 +28,5 @@ func StartHttpServer() {
 	})
 
 	fmt.Println("starting http server done!")
-	app.Run(iris.Addr(":8080"))
+	app.Run(iris.Addr(":" + port))
 }
