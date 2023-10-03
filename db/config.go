@@ -15,9 +15,15 @@ type KafkaConfig struct {
 
 var C SystemConfig
 
-func InitConfig() {
+func InitConfig(external bool) {
+	// 这里需要注意，如果内网则使用docker-compose的hostnam和9092
+	// 如果外网则需要docker-compose指定EXTERNAL的端口例如9094
+	Url := "kafka:9092"
+	if external {
+		Url = "localhost:9094"
+	}
 	kafka_config := KafkaConfig{
-		Url:    "localhost:9094",
+		Url:    Url,
 		Topic1: "mytest",
 	}
 	C.Kafka = kafka_config
