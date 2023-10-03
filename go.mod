@@ -7,6 +7,7 @@ require (
 	github.com/bluele/gcache v0.0.2
 	github.com/kataras/iris/v12 v12.2.7
 	github.com/sirupsen/logrus v1.8.1
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
 require (
